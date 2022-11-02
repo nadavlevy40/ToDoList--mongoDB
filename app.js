@@ -55,9 +55,9 @@ app.get("/", function(req, res) {
             list.save();
             res.redirect("/");
         }
-      }
-      else{
-            res.render("list", {listTitle:"Today", newListItems:foundList.items});
+        else{
+          res.render("list", {listTitle:"Today", newListItems:foundList.items});
+    }
       }
     // if(foundItems.length==0)
     // {
