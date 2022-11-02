@@ -20,17 +20,12 @@ const itemsSchema={
 const Item=mongoose.model("Item",itemsSchema);
 
 
-const buyFood=new Item({
-  name:"buy food"
-});
-const cookFood=new Item({
-  name:"cook food"
-});
-const eatFood=new Item({
-  name:"eat food"
+const firstItem=new Item({
+  name:"First item"
 });
 
-const defaultItems=[];
+
+const defaultItems=[firstItem];
 
 const listSchema={
   name:String,
@@ -42,43 +37,27 @@ const List=mongoose.model("List", listSchema);
 
 app.get("/", function(req, res) {
 
-  //  Item.find({},function(err,foundItems){
-  //   // List.findOne({name:"Today"},function(err,foundList) {
-  //   //   if(!err)
-  //   //   {
-  //   //     if(!foundList)
-  //   //     {
-  //   //         const list=new List({
-  //   //           name:customList,
-  //   //           items:defaultItems
-  //   //         });
-  //   //         list.save();
-  //   //         res.redirect("/");
-  //   //     }
-  //   //     else{
-  //   //       res.render("list", {listTitle:"Today", newListItems:foundList.items});
-  //   // }
-  //   //   }
-  //   if(foundItems.length==0)
-  //   {
-  //     Item.insertMany(defaultItems,function(err){
-  //       if(err)
-  //       {
-  //          console.log(err);
-  //       }
-  //       else
-  //       {
-  //          console.log("successfuly inseted to document!");
-  //       }
-  //     });
+   Item.find({},function(err,foundItems){
+    if(foundItems.length==0)
+    {
+      Item.insertMany(defaultItems,function(err){
+        if(err)
+        {
+           console.log(err);
+        }
+        else
+        {
+           console.log("successfuly inseted to document!");
+        }
+      });
         res.redirect("/");
-    // }
-    // else{
-      //res.render("list", {listTitle: "Today", newListItems: defaultItems});
+    }
+    else{
+      res.render("list", {listTitle: "Today", newListItems: defaultItems});
 
-    // }
+    }
 
-  //  });
+   });
 });
 
 app.post("/", function(req, res){
