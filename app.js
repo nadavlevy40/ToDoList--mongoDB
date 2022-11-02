@@ -40,11 +40,14 @@ List.findOne({name:"Today"},function(err,foundList) {
 
    Item.find({},function(err,foundItems){
     if(foundItems.length==0){
+      Item.insertMany(defaultItems,function(err){
       res.redirect("/");
+      });
     }
+  
     else
     {
-      res.render("list", {listTitle: "Today", newListItems:foundItems})  ;
+      res.render("list", {listTitle: "Today", newListItems:defaultItems})  ;
 
     }
     
