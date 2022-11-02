@@ -36,6 +36,7 @@ const List=mongoose.model("List", listSchema);
 
 
 app.get("/", function(req, res) {
+List.findOne({},function(err,foundList) {
 
   //  Item.find({},function(err,foundItems){
   //   if(foundItems.length==0)
@@ -53,8 +54,14 @@ app.get("/", function(req, res) {
   //       res.redirect("/");
   //   }
     // else{
-      res.render("list", {listTitle: "Today", newListItems: defaultItems});
-
+      if(err)
+      {
+        console.log(err);
+      }
+      else{
+      res.render("list", {listTitle: "Today", newListItems:foundList.items})  ;
+      }
+    });
     // }
 
   // });
