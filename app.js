@@ -30,7 +30,7 @@ const eatFood=new Item({
   name:"eat food"
 });
 
-const defaultItems=[];
+const defaultItems=[buyFood , cookFood , eatFood];
 
 const listSchema={
   name:String,
@@ -78,7 +78,7 @@ app.get("/", function(req, res) {
 
     }
 
-  }); 
+   });
 });
 
 app.post("/", function(req, res){
