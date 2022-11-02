@@ -30,7 +30,7 @@ const eatFood=new Item({
   name:"eat food"
 });
 
-const defaultItems=[buyFood,cookFood,eatFood];
+const defaultItems=[];
 
 const listSchema={
   name:String,
