@@ -148,15 +148,15 @@ app.get("/about", function(req, res){
   res.render("about");
 });
 
-// let port = process.env.PORT;
-// if (port == null || port == "") {
-//   port = 3000;
-// }
-// app.listen(port, function() {
-//   console.log("Server started successfuly!");
-// });
-
-const server = app.listen(process.env.PORT || 3000, () => {
-  const port = server.address().port;
-
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
+app.listen(port, function() {
+  console.log("Server started successfuly!");
 });
+
+// const server = app.listen(process.env.PORT || 3000, () => {
+//   const port = server.address().port;
+
+// });
