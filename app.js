@@ -49,11 +49,11 @@ app.get("/", function(req, res) {
       Item.insertMany(defaultItems,function(err){
         if(err)
         {
-          console.log(err);
+          // console.log(err);
         }
         else
         {
-          console.log("successfuly inseted to document!");
+          // console.log("successfuly inseted to document!");
         }
       });
        res.redirect("/");
