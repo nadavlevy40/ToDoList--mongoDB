@@ -36,7 +36,6 @@ const List=mongoose.model("List", listSchema);
 
 
 app.get("/", function(req, res) {
-List.findOne({name:"Today"},function(err,foundList) {
 
    Item.find({},function(err,foundItems){
     if(foundItems.length==0){
@@ -77,7 +76,7 @@ List.findOne({name:"Today"},function(err,foundList) {
 
   // });
 });
-});
+
 
 app.post("/", function(req, res){
 
