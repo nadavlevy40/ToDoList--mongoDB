@@ -25,7 +25,7 @@ const firstItem=new Item({
 });
 
 
-const defaultItems=[firstItem];
+const defaultItems=[];
 
 const listSchema={
   name:String,
@@ -37,27 +37,27 @@ const List=mongoose.model("List", listSchema);
 
 app.get("/", function(req, res) {
 
-   Item.find({},function(err,foundItems){
-    if(foundItems.length==0)
-    {
-      Item.insertMany(defaultItems,function(err){
-        if(err)
-        {
-           console.log(err);
-        }
-        else
-        {
-           console.log("successfuly inseted to document!");
-        }
-      });
-        res.redirect("/");
-    }
-    else{
+  //  Item.find({},function(err,foundItems){
+  //   if(foundItems.length==0)
+  //   {
+  //     Item.insertMany(defaultItems,function(err){
+  //       if(err)
+  //       {
+  //          console.log(err);
+  //       }
+  //       else
+  //       {
+  //          console.log("successfuly inseted to document!");
+  //       }
+  //     });
+  //       res.redirect("/");
+  //   }
+    // else{
       res.render("list", {listTitle: "Today", newListItems: defaultItems});
 
-    }
+    // }
 
-   });
+  // });
 });
 
 app.post("/", function(req, res){
@@ -95,7 +95,7 @@ app.post("/delete",function(req,res){
     Item.findByIdAndRemove(checkedItemId,function(err){
       if(!err){
         console.log("Delete succsseful!");
-    res.redirect("/");
+         res.redirect("/");
   }
 
   });
