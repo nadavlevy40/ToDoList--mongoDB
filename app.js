@@ -71,10 +71,10 @@ app.get("/", function(req, res) {
   //          console.log("successfuly inseted to document!");
   //       }
   //     });
-      //  res.redirect("/");
+        res.redirect("/:customListName");
     // }
     // else{
-      res.render("list", {listTitle: "Today", newListItems: defaultItems});
+      //res.render("list", {listTitle: "Today", newListItems: defaultItems});
 
     // }
 
