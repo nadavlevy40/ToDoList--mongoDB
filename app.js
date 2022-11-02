@@ -25,7 +25,7 @@ const firstItem=new Item({
 });
 
 
-const defaultItems=[];
+const defaultItems=[firstItem];
 
 const listSchema={
   name:String,
@@ -37,20 +37,41 @@ const List=mongoose.model("List", listSchema);
 
 app.get("/", function(req, res) {
 
-   Item.find({},function(err,foundItems){
-    if(foundItems.length==0){
-      Item.insertMany(defaultItems,function(err){
-      res.redirect("/");
-      });
-    }
-  
-    else
+  List.findOne({name:"Today"},function(err,foundList) {
+    if(!err)
     {
-      res.render("list", {listTitle: "Today", newListItems:defaultItems})  ;
+      if(!foundList)
+      //create a new list!
+      {
+        const list=new List({
+          name:"Today",
+          items:[]
+        });
+        list.save();
+        res.redirect("/");
 
+      }
+      else
+      {
+        res.render("list",{listTitle:"Today",newListItems:foundList.items});
+      }
     }
-    
   });
+});
+  //  Item.find({},function(err,foundItems){
+  //   if(foundItems.length==0){
+  //     Item.insertMany(defaultItems,function(err){
+  //     res.redirect("/");
+  //     });
+  //   }
+  
+  //   else
+  //   {
+  //     res.render("list", {listTitle: "Today", newListItems:foundItems})  ;
+
+  //   }
+    
+  // });
   //     Item.insertMany(defaultItems,function(err){
   //       if(err)
   //       {
@@ -75,7 +96,7 @@ app.get("/", function(req, res) {
     // }
 
   // });
-});
+// });
 
 
 app.post("/", function(req, res){
