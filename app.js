@@ -25,7 +25,7 @@ const firstItem=new Item({
 });
 
 
-const defaultItems=[];
+const defaultItems=[firstItem];
 
 const listSchema={
   name:String,
