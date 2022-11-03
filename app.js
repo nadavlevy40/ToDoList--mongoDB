@@ -25,7 +25,7 @@ const firstItem=new Item({
 });
 
 
-const defaultItems=[firstItem];
+const defaultItems=[];
 
 const listSchema={
   name:String,
@@ -37,9 +37,28 @@ const List=mongoose.model("List", listSchema);
 
 app.get("/", function(req, res) {
 
-  
+  List.findOne({name:customList},function(err,foundList) {
+    if(!err)
+    {
+      if(!foundList)
+      //create a new list!
+      {
+        const list=new List({
+          name:customList,
+          items:defaultItems
+        });
+        list.save();
+        res.redirect("/");
 
-  //  Item.find({},function(err,foundItems){
+      }
+      else{
+        res.render("list",{listTitle:"Today",newListItems:foundList.items});
+      }
+    }
+  });
+});
+
+   // Item.find({},function(err,foundItems){
   //   if(foundItems.length==0){
   //     Item.insertMany(defaultItems,function(err){
   //     res.redirect("/");
@@ -48,10 +67,10 @@ app.get("/", function(req, res) {
   
   //   else
   //   {
-    res.render("list", {listTitle: "Today", newListItems:foundItems})  ;
+   // res.render("list", {listTitle: "Today", newListItems:foundItems})  ;
 
   //   }
-    
+   // });
   // });
   //     Item.insertMany(defaultItems,function(err){
   //       if(err)
@@ -79,7 +98,7 @@ app.get("/", function(req, res) {
   // });
 // });
 
-});
+
 
 
 
