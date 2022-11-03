@@ -37,25 +37,25 @@ const List=mongoose.model("List", listSchema);
 
 app.get("/", function(req, res) {
 
-  List.findOne({name:customList},function(err,foundList) {
-    if(!err)
+  Item.find({},function(err,foundItems){
+    if(foundItems.length==0)
     {
-      if(!foundList)
-      //create a new list!
-      {
-        const list=new List({
-          name:customList,
-          items:defaultItems
-        });
-        list.save();
-        res.redirect("/");
-
-      }
-      else{
-        res.render("list",{listTitle:"Today",newListItems:foundList.items});
-      }
+      Item.insertMany(defaultItems,function(err){
+        if(err)
+        {
+          console.log(err);
+        }
+        else{
+          console.log("succesefuly inseted");
+        }
+      });
+      res.redirect("/");
     }
-  });
+    else
+    {
+      res.render("list",{listTitle:"Today",newListItems:foundItems});
+    }
+  })
 });
 
    // Item.find({},function(err,foundItems){
