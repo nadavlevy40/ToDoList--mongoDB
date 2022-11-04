@@ -28,7 +28,7 @@ const secondItem=new Item({
   name:"Secon item"
 })
 
-const defaultItems=[firstItem , secondItem];
+const defaultItems=[];
 
 const listSchema={
   name:String,
@@ -40,27 +40,57 @@ const List=mongoose.model("List", listSchema);
 
 app.get("/", function(req, res) {
 
-   Item.find({},function(err,foundItems){
-     if(foundItems.length==0)
-     {
-      Item.insertMany(defaultItems,function(err){
-        if(err)
-        {
-          console.log(err);
-        }
-        else{
-          console.log("succesefuly inseted");
-        }
-      });
-      res.redirect("/");
-    }
-    else
+
+
+  List.findOne({name:"Today"},function(err,foundList) {
+    if(!err)
     {
-      res.render("list",{listTitle:"Today",newListItems:foundItems});
-   }
+      if(!foundList)
+      //create a new list!
+      {
+        const list=new List({
+          name:"Toady",
+          items:defaultItems
+        });
+        list.save();
+        res.redirect("/");
+
+      }
+      else{
+        //show an existing list!
+        res.render("list",{listTitle:foundList.name,newListItems:foundList.items});
+      }
+    }
+})
+
+});
+
+
+
+
+
+
+  //  Item.find({},function(err,foundItems){
+  //    if(foundItems.length==0)
+  //    {
+  //     Item.insertMany(defaultItems,function(err){
+  //       if(err)
+  //       {
+  //         console.log(err);
+  //       }
+  //       else{
+  //         console.log("succesefuly inseted");
+  //       }
+  //     });
+  //     res.redirect("/");
+  //   }
+  //   else
+  //   {
+     // res.render("list",{listTitle:"Today",newListItems:foundItems});
+  //  }
    
-});
-});
+// });
+//});
 
    // Item.find({},function(err,foundItems){
   //   if(foundItems.length==0){
