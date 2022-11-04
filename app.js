@@ -24,8 +24,11 @@ const firstItem=new Item({
   name:"First item"
 });
 
+const secondItem=new Item({
+  name:"Secon item"
+})
 
-const defaultItems=[firstItem];
+const defaultItems=[firstItem , secondItem];
 
 const listSchema={
   name:String,
@@ -38,25 +41,25 @@ const List=mongoose.model("List", listSchema);
 app.get("/", function(req, res) {
 
    Item.find({},function(err,foundItems){
-  //   if(foundItems.length==0)
-  //   {
-  //     Item.insertMany(defaultItems,function(err){
-  //       if(err)
-  //       {
-  //         console.log(err);
-  //       }
-  //       else{
-  //         console.log("succesefuly inseted");
-  //       }
-  //     });
-      // res.redirect("/");
-    // }
-    // else
-    // {
+     if(foundItems.length==0)
+     {
+      Item.insertMany(defaultItems,function(err){
+        if(err)
+        {
+          console.log(err);
+        }
+        else{
+          console.log("succesefuly inseted");
+        }
+      });
+      res.redirect("/");
+    }
+    else
+    {
       res.render("list",{listTitle:"Today",newListItems:foundItems});
-   });
-    //}
- // })
+   }
+   
+});
 });
 
    // Item.find({},function(err,foundItems){
