@@ -53,11 +53,13 @@ app.get("/", function(req, res) {
           items:defaultItems
         });
         list.save();
+        console.log("new list save succesfuly");
         res.redirect("/");
 
       }
       else{
         //show an existing list!
+        console.log("exising list!");
         res.render("list",{listTitle:foundList.name,newListItems:foundList.items});
       }
     }
