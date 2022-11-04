@@ -28,7 +28,8 @@ const secondItem=new Item({
   name:"Secon item"
 })
 
-const defaultItems=[firstItem];
+const defaultItems=[];
+
 
 const listSchema={
   name:String,
