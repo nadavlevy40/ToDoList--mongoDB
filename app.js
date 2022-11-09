@@ -1,10 +1,9 @@
-//jshint esversion:6
 
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose=require("mongoose");
-const app = express();  
 const _=require("lodash");
+const app = express();  
 
 app.set('view engine', 'ejs');
 
@@ -19,14 +18,6 @@ const itemsSchema={
 
 const Item=mongoose.model("Item",itemsSchema);
 
-
-const firstItem=new Item({
-  name:"First item"
-});
-
-const secondItem=new Item({
-  name:"Secon item"
-})
 
 const defaultItems=[];
 
